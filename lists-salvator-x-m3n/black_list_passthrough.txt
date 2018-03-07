@@ -1,0 +1,3 @@
+.*interrupt-controller@f1010000
+.*pmu_a5.*
+/soc/timer
