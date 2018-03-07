@@ -2,7 +2,7 @@
 /cpus
 /psci
 /aliases
-.*interrupt.*
+.*interrupt-controller@f1010000
 .*pmu_a5.*
 .*opp_table.*
 .*mmu@fd800000
