@@ -3,7 +3,6 @@
 import argparse
 import re
 from pyfdt.pyfdt import *
-from pip.cmdoptions import src
 import ntpath
 import os
 import datetime
@@ -155,9 +154,9 @@ def is_passthrough_node(path, node):
         if irq_index is not None:
             irq_item = node[irq_index]
             if isinstance(irq_item, FdtPropertyWords) and irq_item[0] == GIC_SPI:
-                irq_found = True 
-            if (node._find('iommus') or irq_found) and node._find('xen,coproc') is None:
-                return True
+                irq_found = True
+        if (node._find('iommus') is not None or irq_found) and node._find('xen,coproc') is None:
+            return True
     return False
 
 def write_passthrough(fdt, file):
