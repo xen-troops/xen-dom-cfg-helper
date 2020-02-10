@@ -155,7 +155,14 @@ def is_passthrough_node(path, node):
             irq_item = node[irq_index]
             if isinstance(irq_item, FdtPropertyWords) and irq_item[0] == GIC_SPI:
                 irq_found = True
-        if (node._find('iommus') is not None or irq_found) and node._find('xen,coproc') is None:
+	reg_found = False
+	reg_index = node._find('reg')
+	if reg_index is not None:
+            reg_item = node[reg_index]
+            if isinstance(reg_item, FdtPropertyWords) and len(reg_item) > 1:
+                reg_found = True
+
+        if (node._find('iommus') is not None or reg_found or irq_found) and node._find('xen,coproc') is None:
             return True
     return False
 
