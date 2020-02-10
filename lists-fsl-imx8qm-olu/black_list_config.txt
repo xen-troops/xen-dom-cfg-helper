@@ -1,0 +1,16 @@
+/chosen
+/cpus
+/psci
+/aliases
+/timer
+/pmu
+/interrupt-controller@51a00000
+/cci@.*
+/memory@.*
+/ddr_pmu
+/iommu@.*
+
+.*imx8_gpu_ss.*
+/serial@5a060000
+.*PD_DMA_UART0.*
+
