@@ -6,9 +6,15 @@
 .*pmu_a5.*
 .opp_table.*
 .*mmu@febd0000
+.*mmu@febe0000
+.*mmu@fe990000
+.*mmu@fe980000
 .*mmu@fe6b0000
+.*mmu@fe6f0000
 .*mmu@fd800000
 .*mmu@fd950000
+.*mmu@fd960000
+.*mmu@fd970000
 .*mmu@ff8b0000
 .*mmu@e6570000
 .*mmu@ffc80000
