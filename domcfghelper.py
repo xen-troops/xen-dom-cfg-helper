@@ -23,17 +23,17 @@ def match_list(l, value):
 
 def is_node_ok(path, node):
     if match_list(black_list, path):
-        print 'Warning: item %s is in black list' % (path)
+        print('Warning: item %s is in black list' % (path))
         return False;
     index = node._find('status')
     if (index is not None and isinstance(node[index], FdtPropertyStrings) and
         node[index][0] == 'disabled'):
-        print 'Warning: item %s disabled' % (node.get_name()) 
+        print('Warning: item %s disabled' % (node.get_name())) 
         return False
     return True
 
 def write_compatible(fdt, file):
-    print 'Info: generate dt_compatible'
+    print('Info: generate dt_compatible')
     result = ""
     node = fdt.resolve_path('/compatible')
     if node and isinstance(node, FdtPropertyStrings):
@@ -49,7 +49,7 @@ def get_dtdev(path, node):
     return result
 
 def write_dtdev(fdt, file):
-    print 'Info: generate dtdev'
+    print('Info: generate dtdev')
     file.write('dtdev = [\n')
     for (path, node) in fdt.resolve_path('/').walk():
         if isinstance(node, FdtNode): 
@@ -57,7 +57,7 @@ def write_dtdev(fdt, file):
     file.write(']\n\n')
 
 def write_dtpassthrough(fdt, file):
-    print 'Info: generate dt_passthrough_nodes'
+    print('Info: generate dt_passthrough_nodes')
     file.write('# Clocks and regulators are needed and are in the device tree root,\n')
     file.write('# but we do not want to copy all root nodes: handle these one by one\n')
     file.write('dt_passthrough_nodes = [\n')
@@ -88,7 +88,7 @@ def get_irqs(path, node):
     return result
 
 def write_irqs(fdt, file):
-    print 'Info: generate irqs'
+    print('Info: generate irqs')
     file.write('irqs = [\n')
     irqs = set()
     for (path, node) in fdt.resolve_path('/').walk():
@@ -130,7 +130,7 @@ def add_iomem(regs, val):
     regs.append((val[0], val[1], names, val[3]))
 
 def write_iomem(fdt, file):
-    print 'Info: generate iomem'
+    print('Info: generate iomem')
     result = list()
     file.write('iomem = [\n')
     for (path, node) in fdt.resolve_path('/').walk():
@@ -160,7 +160,7 @@ def is_passthrough_node(path, node):
     return False
 
 def write_passthrough(fdt, file):
-    print 'Info: generate passthrough'
+    print('Info: generate passthrough')
     result = list()
     for (path, node) in fdt.resolve_path('/').walk():
         if is_passthrough_node(path, node):
@@ -175,7 +175,7 @@ def add_passthrough(fdt):
     for (path, node) in fdt.resolve_path('/').walk():
         if is_passthrough_node(path, node):
             if node._find('xen,passthrough'):
-                print 'Warning: item %s passthrough already set' % node.get_name()
+                print('Warning: item %s passthrough already set' % node.get_name())
             else:
                 node.insert(0, prop)
 
@@ -190,18 +190,18 @@ def partial_dtb_node(path, src_node, dst_node):
     for entry in src_node:
         entry_path = path + entry.get_name()
         if match_list(black_list, entry_path):
-            print 'Warning: item %s is in black list' % entry_path
+            print('Warning: item %s is in black list' % entry_path)
             continue
         match_disabled = match_list(disable_list, entry_path)
         match_dtb = match_list(dtb_list, entry_path)
         if len(dtb_list) == 0 or match_dtb or match_disabled:
-            print 'Info: item %s is added to dtb' % entry_path
+            print('Info: item %s is added to dtb' % entry_path)
             if isinstance(entry, FdtNode):
                 dst_entry = FdtNode(entry.get_name())
                 dst_node.append(dst_entry)
                 partial_dtb_node(entry_path + '/', entry, dst_entry)
                 if match_disabled:
-                    print 'Warning: item %s is disabled' % entry_path
+                    print('Warning: item %s is disabled' % entry_path)
                     set_node_disabled(dst_entry)
             if isinstance(entry, FdtProperty):
                 dst_node.append(entry)
