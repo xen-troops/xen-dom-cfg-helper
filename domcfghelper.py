@@ -240,7 +240,7 @@ if __name__ == '__main__':
     disable_list = create_list(args.disable_list)
     dtb_list = create_list(args.dtb_list)
 
-    with open(args.src_filename) as infile:
+    with open(args.src_filename, 'rb') as infile:
         dtb = FdtBlobParse(infile)
 
     fdt = dtb.to_fdt()
