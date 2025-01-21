@@ -8,4 +8,4 @@ if __name__ == '__main__':
     parser.add_argument('in_filename', help="input filename")
     args = parser.parse_args()
     with open(args.in_filename, 'rb') as infile:
-        print FdtBlobParse(infile).to_fdt().to_dts()
+        print(FdtBlobParse(infile).to_fdt().to_dts())
